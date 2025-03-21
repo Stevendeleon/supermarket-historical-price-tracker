@@ -1,3 +1,8 @@
+# supermarket-historical-price-tracker
+A platform to scrape, analyze, and compare supermarket product data, providing users with real-time price comparisons and deal insights.
+
+> Everything below was generated with the google cloud code (JB plugin)
+
 # Cloud Run Hello World with Cloud Code
 
 "Hello World" is a [Cloud Run](https://cloud.google.com/run/docs) application that renders a simple webpage.
