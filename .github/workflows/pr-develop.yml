@@ -9,10 +9,17 @@ jobs:
     name: Lint Code
     runs-on: ubuntu-latest
     steps:
-      - name: Common Setup
-        uses: ./.github/workflows/common-setup.yml
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
         with:
           go-version: '1.24.1'
+          check-latest: true
+
+      - name: Install dependencies
+        run: go mod download
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
@@ -22,13 +29,21 @@ jobs:
 
   test:
     name: Run Tests and Coverage
-    needs: [lint]
+    needs: lint
     runs-on: ubuntu-latest
+
     steps:
-      - name: Common Setup
-        uses: ./.github/workflows/common-setup.yml
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
         with:
           go-version: '1.24.1'
+          check-latest: true
+
+      - name: Install dependencies
+        run: go mod download
 
       - name: Run tests
         run: go test -v ./...
@@ -57,13 +72,20 @@ jobs:
 
   build:
     name: Verify Build
-    needs: [test]
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Common Setup
-        uses: ./.github/workflows/common-setup.yml
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
         with:
           go-version: '1.24.1'
+          check-latest: true
+
+      - name: Install dependencies
+        run: go mod download
 
       - name: Build application
         run: go build -v ./...
